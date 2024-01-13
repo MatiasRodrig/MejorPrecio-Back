@@ -1,41 +1,50 @@
 const express = require('express');
-const productSchema = require('../models/colonias')
+const coloniasSchema = require('../models/colonias')
 const router = express.Router();
 
 // Create venta
 
-router.post('/colonias', (req, res) => {
-    const product = productsSchema(req.body)
-    product.save().then((data) => res.json(data, 'Se ha creado un producto')).catch((err) => res.json({ err }))
+router.post('/colonias', (req, res, next) => {
+    const colonia = coloniasSchema(req.body)
+    colonia.save()
+        .then((data) => {
+            res.status(200).json(data)
+        })
+        .catch((err) => {
+            console.error(err);
+            if (!res.headersSent) {
+                next(err);
+            }
+        })
 })
-
 
 // Get all ventas
 
-router.get('/colonias', (req, res) => {
-    productsSchema.find().then((data) => res.json(data)).catch((err) => res.json({ err }))
+router.get('/colonias', (req, res, next) => {
+    coloniasSchema.find().then((data) => res.status(200).json(data)).catch((err) => next(err))
 })
+
 
 // Get a specific venta by ID
 
-router.get('/colonias:id', (req, res) => {
+router.get('/colonias:id', (req, res, next) => {
     const id = req.params.id
-    productSchema.findById(id).then((data) => res.json(data)).catch((err) => res.json(err))
+    coloniasSchema.findById(id).then((data) => res.status(200).json(data)).catch((err) => next(err))
 })
 
 // Update venta
 
-router.put('/colonias/:id', (req, res) => {
+router.put('/colonias/:id', (req, res, next) => {
     const id = req.params.id;
     const { nombre, precio, mercado, comentario } = req.body
-    productSchema.updateOne({ _id: id }, { $set: { nombre, precio, mercado, comentario } }).then((data) => res.json(data)).catch((err) => res.json({ err }))
+    coloniasSchema.updateOne({ _id: id }, { $set: { nombre, precio, mercado, comentario } }).then((data) => res.status(200).json(data)).catch((err) => next(err))
 })
 
 // Delete venta
 
-router.delete('/colonias/:id', (req, res) => {
+router.delete('/colonias/:id', (req, res, next) => {
     const { id } = req.params;
-    productSchema.deleteOne({ _id: id }).then((data) => res.json(data)).catch((err) => res.status(400).json(`Error al eliminar el producto ${err}`))
+    coloniasSchema.deleteOne({ _id: id }).then((data) => res.status(200).json(data)).catch((err) => next(err))
 })
 
 module.exports = router;

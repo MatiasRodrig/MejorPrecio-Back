@@ -1,6 +1,6 @@
 const { default: mongoose } = require('mongoose')
 
-const productSchema = mongoose.Schema({
+const coloniasSchema = mongoose.Schema({
     venta: {
         type: String,
         required: true
@@ -22,4 +22,4 @@ const productSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Products', productSchema)
+module.exports = mongoose.model('Colonias', coloniasSchema)

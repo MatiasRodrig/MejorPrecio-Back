@@ -8,7 +8,7 @@ router.post('/users', (req, res) => {
     const user = userSchema(req.body)
     user
         .save().then((data) => res.json(data, 'Se ha creado un usuario')).catch((error) => res.json({ error }))
-})
+});
 
 // Get all users
 router.get("/users", (req, res) => {

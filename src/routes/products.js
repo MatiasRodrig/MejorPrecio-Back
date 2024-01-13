@@ -5,7 +5,7 @@ const router = express.Router();
 // Create product
 
 router.post('/products', (req, res) => {
-    const product = productsSchema(req.body)
+    const product = productSchema(req.body)
     product.save().then((data) => res.json(data, 'Se ha creado un producto')).catch((err) => res.json({err}))
 })
 
@@ -13,7 +13,7 @@ router.post('/products', (req, res) => {
 // Get all products
 
 router.get('/products', (req, res) => {
-    productsSchema.find().then((data) => res.json(data)).catch((err) => res.json({err}))
+    productSchema.find().then((data) => res.json(data)).catch((err) => res.json({err}))
 })
 
 // Get a specific product by ID

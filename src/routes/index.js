@@ -4,6 +4,7 @@ const passport = require('passport')
 const validator = require('validator')
 const passwordSchema = require('../settings/passwords');
 
+
 router.get('/', (req, res, next) => {
     res.render('index');
 })
@@ -22,8 +23,6 @@ function validarEmail(req, res, next) {
     }
 }
 
-
-
 function validatePassword(req, res, next) {
     const { password } = req.body;
 
@@ -34,6 +33,12 @@ function validatePassword(req, res, next) {
     }
 }
 
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect('/')
+}
 
 router.post('/registro', validatePassword, validarEmail, passport.authenticate('local-signup', {
     successRedirect: '/perfil',
@@ -58,8 +63,12 @@ router.post('/registro', validatePassword, validarEmail, passport.authenticate('
         res.redirect('/')
     })
 
+
+
+//Mostrar el perfil del usuario autenticado
+
     router.use((req, res, next) => {
-        isAuthenticated(res, req, next);
+        isAuthenticated(req, res, next);
         next();
     })
 
@@ -68,12 +77,6 @@ router.post('/registro', validatePassword, validarEmail, passport.authenticate('
     });
 
 
-    function isAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) {
-            return next()
-        }
-        res.redirect('/')
-    }
-
+  
 
     module.exports = router;
