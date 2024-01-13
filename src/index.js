@@ -2,12 +2,15 @@ const express = require('express');
 require('dotenv').config();
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/products');
+const coloniasRoutes = require('./routes/colonias')
 const engine = require('ejs-mate');
 const path = require('path');
 const morgan = require('morgan');
 const session = require('express-session')
 const passport = require('passport');
 const flash = require('connect-flash')
+require('./settings/passwords')
+
 
 
 // Settings
@@ -23,6 +26,7 @@ app.use(session({
     resave: false, 
     saveUninitialized: false 
 }))
+
 
 // Middlewares
 app.use(morgan('dev'))
@@ -41,6 +45,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/index'))
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
+app.use('/api', coloniasRoutes);
 
 
 
@@ -48,6 +53,7 @@ app.use('/api', productRoutes);
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB Atlas')).catch((err) => console.log(err));
+
 
 // port
 
