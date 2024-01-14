@@ -16,9 +16,9 @@ require('./settings/passwords')
 // Settings
 
 const app = express();
-app.set('views', path.join(__dirname, 'views'));
-app.engine('ejs', engine);
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.engine('ejs', engine);
+// app.set('view engine', 'ejs');
 app.use(express.json());
 require('./passport/local-auth')
 app.use(session({
