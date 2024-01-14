@@ -27,6 +27,13 @@ app.use(session({
     saveUninitialized: false 
 }))
 
+// Routes
+app.use('/', require('./routes/index'))
+app.use('/api', userRoutes);
+app.use('/api', productRoutes);
+app.use('/api', coloniasRoutes);
+
+
 
 // Middlewares
 app.use(morgan('dev'))
@@ -41,11 +48,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-app.use('/', require('./routes/index'))
-app.use('/api', userRoutes);
-app.use('/api', productRoutes);
-app.use('/api', coloniasRoutes);
 
 
 
