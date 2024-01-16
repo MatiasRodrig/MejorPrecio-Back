@@ -15,40 +15,42 @@ require('./settings/passwords')
 
 // Settings
 
+
 const app = express();
-// app.set('views', path.join(__dirname, 'views'));
-// app.engine('ejs', engine);
-// app.set('view engine', 'ejs');
-app.use(express.json());
-require('./passport/local-auth')
 app.use(session({
     secret: process.env.SECRET,
-    resave: false, 
-    saveUninitialized: false 
+    resave: false,
+    saveUninitialized: false
 }))
 
-// Routes
-app.use('/', require('./routes/index'))
-app.use('/api', userRoutes);
-app.use('/api', productRoutes);
-app.use('/api', coloniasRoutes);
+app.use(passport.initialize());
+app.use(passport.session());
 
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', engine);
+app.set('view engine', 'ejs');
+
+
+app.use(express.json());
+require('./passport/local-auth')
 
 
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use((req, res, next) => {
     app.locals.registroMensaje = req.flash('registroMensaje')
     app.locals.loginMensaje = req.flash('loginMensaje')
     next();
 });
 
-
+// Routes
+app.use('/', require('./routes/index'))
+app.use('/api', userRoutes);
+app.use('/api', productRoutes);
+app.use('/api', coloniasRoutes);
 
 
 // MongoDB connection

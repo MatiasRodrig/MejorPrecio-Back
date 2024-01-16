@@ -4,10 +4,14 @@ const router = express.Router();
 
 // Create user
 
-router.post('/users', (req, res) => {
-    const user = userSchema(req.body)
-    user
-        .save().then((data) => res.json(data, 'Se ha creado un usuario')).catch((error) => res.json({ error }))
+router.post('/users', async (req, res) => {
+    const user = new userSchema(req.body);
+    try {
+        const data = await user.save();
+        res.status(201).json({ data: data, msg: 'Se ha creado un usuario' })
+    } catch (error) {
+        res.status(301);
+    }
 });
 
 // Get all users
@@ -35,7 +39,7 @@ router.delete('/users/:id', (req, res) => {
     const { id } = req.params;
     userSchema.deleteOne({ _id: id })
         .then((data) => res.json(data))
-        .catch((error) => res.status(400).json(`Error al eliminar el usuario ${error}`));
+        .catch((error) => res.status(400));
 });
 
     

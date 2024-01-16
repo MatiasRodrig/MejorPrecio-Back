@@ -5,6 +5,7 @@ const validator = require('validator')
 const passwordSchema = require('../settings/passwords');
 
 
+
 router.get('/', (req, res, next) => {
     res.render('index');
 })
