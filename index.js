@@ -61,6 +61,6 @@ mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to M
 
 // port
 
-const port = 3017
+const port = process.env.PORT
 
 app.listen(port, () => console.log('server listening on port', port));
