@@ -8,7 +8,7 @@ router.post('/colonias', (req, res, next) => {
     const colonia = coloniasSchema(req.body)
     colonia.save()
         .then((data) => {
-            res.status(200).json(data)
+            res.status(200)
         })
         .catch((err) => {
             console.error(err);
@@ -21,7 +21,7 @@ router.post('/colonias', (req, res, next) => {
 // Get all ventas
 
 router.get('/colonias', (req, res, next) => {
-    coloniasSchema.find().then((data) => res.status(200).json(data)).catch((err) => next(err))
+    coloniasSchema.find().then((data) => res.status(200)).catch((err) => next(err))
 })
 
 
@@ -29,7 +29,7 @@ router.get('/colonias', (req, res, next) => {
 
 router.get('/colonias:id', (req, res, next) => {
     const id = req.params.id
-    coloniasSchema.findById(id).then((data) => res.status(200).json(data)).catch((err) => next(err))
+    coloniasSchema.findById(id).then((data) => res.status(200)).catch((err) => next(err))
 })
 
 // Update venta
@@ -37,14 +37,14 @@ router.get('/colonias:id', (req, res, next) => {
 router.put('/colonias/:id', (req, res, next) => {
     const id = req.params.id;
     const { nombre, precio, mercado, comentario } = req.body
-    coloniasSchema.updateOne({ _id: id }, { $set: { nombre, precio, mercado, comentario } }).then((data) => res.status(200).json(data)).catch((err) => next(err))
+    coloniasSchema.updateOne({ _id: id }, { $set: { nombre, precio, mercado, comentario } }).then((data) => res.status(200)).catch((err) => next(err))
 })
 
 // Delete venta
 
 router.delete('/colonias/:id', (req, res, next) => {
     const { id } = req.params;
-    coloniasSchema.deleteOne({ _id: id }).then((data) => res.status(200).json(data)).catch((err) => next(err))
+    coloniasSchema.deleteOne({ _id: id }).then((data) => res.status(200)).catch((err) => next(err))
 })
 
 module.exports = router;

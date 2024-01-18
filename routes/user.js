@@ -16,7 +16,7 @@ router.post('/users', async (req, res) => {
 
 // Get all users
 router.get("/users", (req, res) => {
-    userSchema.find().then((data) => res.json(data)).catch((error) => res.json({ error }))
+    userSchema.find().then((data) => res.json(data)).catch((error) => res.status(300))
 })
 
 
@@ -31,7 +31,7 @@ router.get('/users/:id', (req, res) => {
 router.put('/users/:id', (req, res) => {
     const id = req.params.id;
     const { nombre, apellido, email, password, telefono  } = req.body
-    userSchema.updateOne({ _id: id }, { $set: { nombre, apellido, email, password, telefono } }).then((data) => res.json(data)).catch((error) => res.json({ error }))
+    userSchema.updateOne({ _id: id }, { $set: { nombre, apellido, email, password, telefono } }).then((data) => res.json(data)).catch((error) => res.status(300))
 });
 
 // Delete user
