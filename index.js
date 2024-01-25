@@ -55,9 +55,24 @@ app.use('/api', coloniasRoutes);
 
 // MongoDB connection
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB Atlas')).catch((err) => console.log(err));
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+client.connect(err => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected to MongoDB Atlas');
+    const coleccion = client.db("test").collection("products");
+    // Aquí es donde se crea el índice TTL
+    coleccion.createIndex(
+      { "fecha_creacion": 1 }, 
+      { expireAfterSeconds: 86400 }
+    );
+    client.close();
+  }
+});
 
 // port
 
