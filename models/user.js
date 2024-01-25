@@ -1,6 +1,5 @@
 const { default: mongoose } = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
-const passport = require('passport')
 
 
 const userSchema = mongoose.Schema({
@@ -28,16 +27,17 @@ const userSchema = mongoose.Schema({
     }
 })
 
+
 // Cifrar password
 userSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 };
 
-
 // Comprobar password
 userSchema.methods.validatePassword = function validatePassword(password) {
     return bcrypt.compareSync(password, this.password);
 }
+
 
 
 

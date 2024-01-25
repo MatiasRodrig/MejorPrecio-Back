@@ -1,5 +1,6 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken')
 
 const User = require('../models/user');
 
@@ -12,14 +13,14 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
 });
-    
+
 
 passport.use('local-signup', new localStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, email, password, done) => {
-    
+
     const user = await User.findOne({ email: email })
     if (user) {
         return done(null, false, req.flash('registroMensaje', 'El Email está registrado'))
@@ -30,10 +31,19 @@ passport.use('local-signup', new localStrategy({
         newUser.nombre = req.body.nombre
         newUser.apellido = req.body.apellido
         newUser.telefono = req.body.telefono
-        await newUser.save();
+        const userSaved = await newUser.save();
         done(null, newUser);
+
+        jwt.sign({
+            id: userSaved._id
+        }, 'secret', {},
+            (err, token) => {
+                if (err) console.log(err)
+                res.cookie('token', token)
+                res.status(200)
+        })
     }
-    
+
 }));
 
 passport.use('local-signin', new localStrategy({
@@ -52,3 +62,4 @@ passport.use('local-signin', new localStrategy({
     }
     done(null, user)
 }));
+
