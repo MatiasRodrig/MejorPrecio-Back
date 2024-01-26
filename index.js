@@ -48,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api', indexRoutes)
+app.use('/', indexRoutes)
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
 app.use('/api', coloniasRoutes);
