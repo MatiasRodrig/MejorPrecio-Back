@@ -3,6 +3,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/products');
 const coloniasRoutes = require('./routes/colonias')
+const indexRoutes = require('./routes/index')
 const engine = require('ejs-mate');
 const path = require('path');
 const morgan = require('morgan');
@@ -47,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/', require('./routes/index'))
+app.use('/api', indexRoutes)
 app.use('/api', userRoutes);
 app.use('/api', productRoutes);
 app.use('/api', coloniasRoutes);
