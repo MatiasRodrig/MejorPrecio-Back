@@ -56,11 +56,16 @@ app.use('/api', coloniasRoutes);
 
 // MongoDB connection
 
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB Atlas')).catch((err) => console.log(err));
+
+/*
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+*/
 
-client.connect(err => {
+/* client.connect(err => {
   if (err) {
     console.log(err);
   } else {
@@ -73,7 +78,7 @@ client.connect(err => {
     );
     client.close();
   }
-});
+}); */
 
 // port
 
