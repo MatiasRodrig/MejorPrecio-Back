@@ -10,7 +10,7 @@ const session = require('express-session')
 const passport = require('passport');
 const flash = require('connect-flash')
 require('./settings/passwords')
-
+const cors = require('cors')
 
 
 // Settings
@@ -22,7 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
+app.use(cors())
 app.use(passport.initialize());
 app.use(passport.session());
 
