@@ -23,7 +23,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-app.use(cors())
+
+const corsOptions = {
+  origin: true,
+  optionsSuccessStatus: 200
+}
+
+
+app.use(cors(corsOptions))
 app.use(passport.initialize());
 app.use(passport.session());
 
