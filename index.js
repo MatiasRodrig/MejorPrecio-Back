@@ -56,8 +56,8 @@ app.use('/api', coloniasRoutes);
 
 // MongoDB connection
 
-// const mongoose = require('mongoose');
-// mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB Atlas')).catch((err) => console.log(err));
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log('Connected to MongoDB Atlas')).catch((err) => console.log(err));
 
 
 const MongoClient = require('mongodb').MongoClient;
