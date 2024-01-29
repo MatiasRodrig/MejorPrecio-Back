@@ -50,10 +50,12 @@ require('./passport/local-auth')
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(flash());
-app.use((req, res, next) => {
-    app.locals.registroMensaje = req.flash('registroMensaje')
-    app.locals.loginMensaje = req.flash('loginMensaje')
-    next();
+app.get('/ruta', (req, res) => {
+  res.json({
+    registroMensaje: req.flash('registroMensaje'),
+    loginMensaje: req.flash('loginMensaje'),
+    // otros datos
+  });
 });
 
 // Routes
