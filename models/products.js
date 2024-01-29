@@ -15,7 +15,10 @@ const productSchema = mongoose.Schema({
     },
     comentario: {
         type: String
-    }
+    },
+    fecha_creacion: { type: Date, expires: 86400, default: Date.now }
 })
 
-module.exports = mongoose.model('Products', productSchema)
+const Product = mongoose.model('Product', productSchema);
+
+module.exports = Product;
