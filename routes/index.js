@@ -41,7 +41,17 @@ function isAuthenticated(req, res, next) {
     res.redirect('/')
 }
 
-router.post('/registro', validatePassword, validarEmail, passport.authenticate('local-signup', {
+async function verificarEmail(req, res, next) {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+        return res.status(400).send('El correo electrónico ya está registrado.');
+    } else {
+        next();
+    }
+}
+
+router.post('/registro', validatePassword, validarEmail, verificarEmail, passport.authenticate('local-signup', {
     successRedirect: '/perfil',
     failureRedirect: '/registro',
     passReqToCallback: true
