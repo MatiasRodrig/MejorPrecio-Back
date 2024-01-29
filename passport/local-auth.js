@@ -23,7 +23,7 @@ passport.use('local-signup', new localStrategy({
 
     const user = await User.findOne({ email: email })
     if (user) {
-        return done(null, false, req.flash('registroMensaje', 'El Email está registrado'))
+        return res.status(400).json({message: ['El usuario ya existe']})
     } else {
         const newUser = new User()
         newUser.email = email
