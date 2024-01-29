@@ -44,6 +44,7 @@ function isAuthenticated(req, res, next) {
 router.post('/registro', validatePassword, validarEmail, passport.authenticate('local-signup', {
     successRedirect: '/perfil',
     failureRedirect: '/registro',
+    failureFlash: true,
     passReqToCallback: true
 }));
 
