@@ -12,6 +12,7 @@ const passport = require('passport');
 const flash = require('connect-flash')
 require('./settings/passwords')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 
 // Settings
