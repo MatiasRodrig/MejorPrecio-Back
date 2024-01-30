@@ -54,11 +54,11 @@ passport.use('local-signin', new localStrategy({
     //Verificar si el usuario ya existe en la base de datos
     let user = await User.findOne({ email: email });
     if (!user) {
-        return done(null, false, req.flash('loginMensaje', 'Este usuario no existe'));
+        return done(null, false, { message: 'Este usuario no existe' });
     }
     //Si no hay un error y el usuario existe, comprobar la contraseña
     if (!user.validatePassword(password)) {
-        return done(null, false, req.flash('loginMensaje', 'Contrasena incorrecta'));
+        return done(null, false, { message: 'Contrasena incorrecta' });
     }
     done(null, user)
 }));
