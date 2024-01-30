@@ -43,7 +43,7 @@ function isAuthenticated(req, res, next) {
 
 async function verificarEmail(req, res, next) {
     const { email } = req.body;
-    const user = await User.findOne({ email });
+    const user = await user.findOne({ email });
     if (user) {
         return res.status(400).send('El correo electrónico ya está registrado.');
     } else {
