@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport')
 const validator = require('validator')
 const passwordSchema = require('../settings/passwords');
+const User = require('../models/user')
 
 
 
@@ -43,7 +44,7 @@ function isAuthenticated(req, res, next) {
 
 async function verificarEmail(req, res, next) {
     const { email } = req.body;
-    const user = await user.findOne({ email });
+    const user = await User.findOne({ email });
     if (user) {
         return res.status(400).send('El correo electrónico ya está registrado.');
     } else {
