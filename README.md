@@ -1,4 +1,4 @@
-# First BackEnd
+# First API
 
 This is a web application that allows users to post and compare prices from different markets in a specific area. This way, users can choose the most affordable prices.
 
