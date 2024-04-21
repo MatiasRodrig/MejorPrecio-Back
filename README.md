@@ -22,7 +22,7 @@ If you're interested in contributing, please read our contribution guidelines.
 
 ### Español
 
-# Primer BackEnd
+# Primer API
 
 Esta es una aplicación web que permite a los usuarios publicar y comparar precios de diferentes mercados en una zona específica. De esta manera, los usuarios pueden elegir los precios más accesibles.
 
